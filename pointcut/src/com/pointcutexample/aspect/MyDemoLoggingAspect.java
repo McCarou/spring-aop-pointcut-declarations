@@ -1,8 +1,8 @@
 package com.pointcutexample.aspect;
 
 import com.pointcutexample.Account;
-import org.aspectj.apache.bcel.classfile.MethodParameters;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -75,6 +75,12 @@ public class MyDemoLoggingAspect {
         System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
 
         System.out.println("\n=====>>> The exception: " + e);
+    }
+
+    @After("execution(* com.pointcutexample.dao.AccountDAO.findAccounts(..))")
+    public void afterFinallyFindAccountsAdvice(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @After (finally) on method: " + method);
     }
 }
 
