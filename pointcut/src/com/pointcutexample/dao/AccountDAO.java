@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.pointcutexample.Account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class AccountDAO {
 
@@ -14,6 +17,24 @@ public class AccountDAO {
 		
 		System.out.println(getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
 		
+	}
+
+	// add a new method: findAccounts
+
+	public List<Account> findAccounts() {
+
+		List<Account> accountList = new ArrayList<Account>();
+
+		// create sample accounts
+		Account account1 = new Account("Joe", "Silver");
+		Account account2 = new Account("Susan", "Gold");
+		Account account3 = new Account("Peter", "Platinum");
+
+		accountList.add(account1);
+		accountList.add(account2);
+		accountList.add(account3);
+
+		return accountList;
 	}
 	
 	public boolean doWork() {
