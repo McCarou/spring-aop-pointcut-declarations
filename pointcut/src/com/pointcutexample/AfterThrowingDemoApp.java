@@ -5,7 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.List;
 
-public class AfterReturningDemoApp {
+public class AfterThrowingDemoApp {
 
 	public static void main(String[] args) {
 
@@ -15,9 +15,14 @@ public class AfterReturningDemoApp {
 		
 		// get the bean from spring container
 		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
-		
-		// call method to find the accounts
-		List<Account> theAccounts = theAccountDAO.findAccounts(false);
+
+		List<Account> theAccounts = null;
+		try {
+			boolean tripWipe = true;
+			theAccounts = theAccountDAO.findAccounts(tripWipe);
+		} catch (Exception e) {
+			System.err.println("\n\nMain Program caught an exception" + e);
+		}
 
 		// display the accounts
 		System.out.println("\n\nMain Program: AfterReturningDemoApp");

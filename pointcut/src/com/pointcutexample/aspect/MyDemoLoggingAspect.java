@@ -4,6 +4,7 @@ import com.pointcutexample.Account;
 import org.aspectj.apache.bcel.classfile.MethodParameters;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -43,9 +44,9 @@ public class MyDemoLoggingAspect {
             pointcut = "execution(* com.pointcutexample.dao.AccountDAO.findAccounts(..))",
             returning = "result")
     public void afterReturningFindAccountsAdvice(
-            JoinPoint theJoinPoint, List<Account> result) {
+            JoinPoint JoinPoint, List<Account> result) {
 
-        String method = theJoinPoint.getSignature().toShortString();
+        String method = JoinPoint.getSignature().toShortString();
         System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
 
         System.out.println("\n=====>>> The result: " + result);
@@ -63,6 +64,17 @@ public class MyDemoLoggingAspect {
             account.setName(theUpperName);
 
         }
+    }
+
+    @AfterThrowing(
+            pointcut = "execution(* com.pointcutexample.dao.AccountDAO.findAccounts(..))",
+            throwing = "e")
+    public void afterThrowingFindAccountsAdvice(JoinPoint joinPoint, Exception e) {
+
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
+
+        System.out.println("\n=====>>> The exception: " + e);
     }
 }
 

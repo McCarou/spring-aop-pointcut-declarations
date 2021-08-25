@@ -21,7 +21,11 @@ public class AccountDAO {
 
 	// add a new method: findAccounts
 
-	public List<Account> findAccounts() {
+	public List<Account> findAccounts(boolean tripWipe) {
+
+		if (tripWipe) {
+			throw new RuntimeException("No accounts for you!");
+		}
 
 		List<Account> accountList = new ArrayList<Account>();
 
